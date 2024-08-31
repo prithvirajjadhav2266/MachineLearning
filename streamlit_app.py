@@ -22,3 +22,13 @@ with st.expander("Dataset working on"):
 with st.expander("Data Visualizers"):
   #taking some of the variables that are important
   st.scatter_chart(data=data,x="bill_length_mm",y="body_mass_g",color="species")
+
+# Correlation Analysis
+st.write("## Correlation Analysis")
+corr_matrix = data.corr()
+
+# Display Correlation Heatmap
+fig, ax = plt.subplots(figsize=(10, 8))
+sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', ax=ax)
+st.pyplot(fig)
+
