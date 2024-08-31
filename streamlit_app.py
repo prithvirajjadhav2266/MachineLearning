@@ -18,3 +18,7 @@ with st.expander("Dataset working on"):
   y=data.species
   y
 #the species is the target variable (Y)  and remaining variables are the input variables (X)
+
+with st.expander("Data Visualizers"):
+  #taking some of the variables that are important
+  st.scatter_chart(data=data,x="bill_length_mm",y="body_mass_g",color="species")
