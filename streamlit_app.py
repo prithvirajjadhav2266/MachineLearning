@@ -45,6 +45,8 @@ values={"island":island,
 input_data=pd.DataFrame(values,index=[0])
 input_data
 
+input_penguins=pd.concat([input_data,X],axis=0)
+input_penguins
 
 
 
