@@ -8,3 +8,4 @@ st.info("Tis app generates the results and visualizations for the datasets")
 data=pd.read_csv("https://raw.githubusercontent.com/prithvirajjadhav2266/MachineLearning/main/penguin_cleaned.csv")
 
 data
+data.drop("Unnamed: 0", axis=1)
