@@ -43,11 +43,13 @@ values={"island":island,
         "body_mass_g":body_mass_g,
         "gender":gender}
 input_data=pd.DataFrame(values,index=[0])
-input_data
-
 input_penguins=pd.concat([input_data,X],axis=0)
-input_penguins
 
+with st.expander("Input Features"):
+  st.write("** Input Features **")
+  input_data
+  st.write("**Conbined Dataset**")
+  input_penguins
 
 
 
