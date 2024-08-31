@@ -11,12 +11,12 @@ with st.expander("Dataset working on"):
   data
 
   st.write("** Independent Variables : X**")
-  X=data.drop("species",axis=1)
-  X
+  X_raw=data.drop("species",axis=1)
+  X_raw
 
   st.write("**Dependent Variable : y**")
-  y=data.species
-  y
+  y_raw=data.species
+  y_raw
 #the species is the target variable (Y)  and remaining variables are the input variables (X)
 
 with st.expander("Data Visualizers"):
@@ -43,17 +43,33 @@ values={"island":island,
         "body_mass_g":body_mass_g,
         "sex":gender}
 input_data=pd.DataFrame(values,index=[0])
-input_penguins=pd.concat([input_data,X],axis=0)
+input_penguins=pd.concat([input_data,X_raw],axis=0)
+
+#Encoding the dataset encode X
+encode=["island","sex"]
+data_penguins=pd.get_dummies(input_penguins,prefix=encode)
+input_row=data_penguins[:1]
+
+#Encoding y
+target_map={"Adelie": 0,
+            "Chinstrap": 1,
+            "Gentoo":2}
+
+def target_encode(val):
+  return target_mapper[val]
+
+y=y_raw.apply(target_encode)
+y
 
 with st.expander("Input Features"):
   st.write("** Input Features **")
   input_data
   st.write("**Conbined Dataset**")
   input_penguins
+  st.write("Encoded Input Penguin")
+  input_row
+  
 
-#Encoding the dataset
-encode=["island","sex"]
-data_penguins=pd.get_dummies(input_penguins,prefix=encode)
-data_penguins[:1]
+
 
 
