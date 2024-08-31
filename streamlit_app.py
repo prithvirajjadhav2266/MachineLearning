@@ -51,7 +51,7 @@ data_penguins=pd.get_dummies(input_penguins,prefix=encode)
 input_row=data_penguins[:1]
 
 #Encoding y
-target_map={"Adelie": 0,
+target_mapper={"Adelie": 0,
             "Chinstrap": 1,
             "Gentoo":2}
 
