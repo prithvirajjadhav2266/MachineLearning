@@ -10,11 +10,11 @@ with st.expander("Dataset working on"):
   data=pd.read_csv("https://raw.githubusercontent.com/prithvirajjadhav2266/MachineLearning/main/penguin_cleaned.csv")
   data
 
-  st.write("**Variables : X**")
+  st.write("** Independent Variables : X**")
   X=data.drop("species",axis=1)
   X
 
-  st.write("**Variables : y**")
+  st.write("**Dependent Variable : y**")
   y=data.species
   y
 #the species is the target variable (Y)  and remaining variables are the input variables (X)
