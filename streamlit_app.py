@@ -36,12 +36,12 @@ with st.sidebar:
 
 
 #creating at the input dataframe according the values that we want in the testi g of the model
-values={"island",island,
-        "bill_length_mm",bill_length_mm,
-        "bill_depth_mm",bill_depth_mm,
-        "flipper_length_mm",flipper_length_mm,
-        "body_mass_g",body_mass_g,
-        "gender",gender}
+values={"island":island,
+        "bill_length_mm":bill_length_mm,
+        "bill_depth_mm":bill_depth_mm,
+        "flipper_length_mm":flipper_length_mm,
+        "body_mass_g":body_mass_g,
+        "gender":gender}
 input_data=pd.DataFrame(values,index=[0])
 input_data
 
