@@ -88,3 +88,4 @@ model.fit(X,y)
 prediction=model.predict(input_row)
 prediction_probability=model.predict_proba(input_row)
 
+prediction_probability
