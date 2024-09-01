@@ -93,4 +93,9 @@ data_prediction_probability.columns=["Adelie","Chinstrap","Gentoo"]
 data_prediction_probability.rename(columns={0:"Adelie",
                                             1:"Chinstrap",
                                             2:"Gentoo"})
-data_prediction_probability
+#data_prediction_probability
+
+#display the predictor species
+st.subheader("Predictor Species")
+penguin_species=np.array(["Adelie","Chinstrap","Gentoo"])
+st.success(str(penguin_species[prediction][0]))
