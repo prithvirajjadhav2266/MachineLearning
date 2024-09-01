@@ -23,6 +23,9 @@ with st.expander("Dataset Working On"):
 
 # Data visualizations using Streamlit's built-in visualizers
 with st.expander("Data Visualizers"):
+
+    st.scatter_chart(data=data,x="bill_length_mm",y="body_mass_g",color="species")
+
     # Scatter Plot for Bill Length vs. Body Mass
     st.write("### Scatter Plot: Bill Length vs. Body Mass")
     st.write("Scatter plot of bill length against body mass, colored by species.")
