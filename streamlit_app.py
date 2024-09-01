@@ -1,21 +1,19 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-
-
 from sklearn.ensemble import RandomForestClassifier
 
 st.title("🤖 Machine Learning App")
 
-st.info("This app generates the results and visualizations for the datasets")
+st.info("This app generates results and visualizations for datasets")
 
 # Load and display dataset
-with st.expander("Dataset working on"):
+with st.expander("Dataset Working On"):
     st.write("**Raw Data**")
     data = pd.read_csv("https://raw.githubusercontent.com/prithvirajjadhav2266/MachineLearning/main/penguin_cleaned.csv")
     st.write(data)
 
-    st.write("** Independent Variables : X**")
+    st.write("**Independent Variables : X**")
     X_raw = data.drop("species", axis=1)
     st.write(X_raw)
 
@@ -23,27 +21,40 @@ with st.expander("Dataset working on"):
     y_raw = data['species']
     st.write(y_raw)
 
-# Data visualizations
+# Data visualizations using Streamlit's built-in visualizers
 with st.expander("Data Visualizers"):
-    st.write("### Scatter Plot")
-    st.scatter_chart(data=data, x="bill_length_mm", y="body_mass_g", color="species")
+    # Scatter Plot for Bill Length vs. Body Mass
+    st.write("### Scatter Plot: Bill Length vs. Body Mass")
+    st.plotly_chart(
+        {
+            "data": [
+                {
+                    "x": data["bill_length_mm"],
+                    "y": data["body_mass_g"],
+                    "type": "scatter",
+                    "mode": "markers",
+                    "marker": {"color": data["species"].apply(lambda x: {'Adelie': 'blue', 'Chinstrap': 'red', 'Gentoo': 'green'}[x])},
+                    "text": data["species"],
+                }
+            ],
+            "layout": {"title": "Bill Length vs Body Mass Colored by Species"},
+        }
+    )
 
-    # Histogram
-    st.write("### Histogram")
-    fig, ax = plt.subplots()
-    sns.histplot(data=data, x="body_mass_g", hue="species", multiple="stack", ax=ax)
-    st.pyplot(fig)
+    # Line Chart of Body Mass by Species
+    st.write("### Line Chart: Body Mass by Species")
+    body_mass_by_species = data.groupby("species")["body_mass_g"].mean()
+    st.line_chart(body_mass_by_species)
 
-    # Box Plot
-    st.write("### Box Plot")
-    fig, ax = plt.subplots()
-    sns.boxplot(x="species", y="flipper_length_mm", data=data, ax=ax)
-    st.pyplot(fig)
+    # Bar Chart for Species Distribution
+    st.write("### Bar Chart: Species Distribution")
+    species_distribution = data['species'].value_counts()
+    st.bar_chart(species_distribution)
 
-    # Pair Plot
-    st.write("### Pair Plot")
-    pairplot_fig = sns.pairplot(data, hue="species")
-    st.pyplot(pairplot_fig)
+    # Area Chart for Flipper Length by Species
+    st.write("### Area Chart: Flipper Length by Species")
+    flipper_length_by_species = data.groupby("species")["flipper_length_mm"].mean()
+    st.area_chart(flipper_length_by_species)
 
 # Data preparations
 with st.sidebar:
@@ -55,7 +66,7 @@ with st.sidebar:
     flipper_length_mm = st.slider("Flipper length (in mm)", 172.0, 231.0, 201.0)
     body_mass_g = st.slider("Body mass (in g)", 2700.0, 6300.0, 4207.0)
 
-# Creating the input features DataFrame
+# Creating the input features DataFrame 
 values = {
     "island": island,
     "bill_length_mm": bill_length_mm,
@@ -69,7 +80,7 @@ input_data = pd.DataFrame(values, index=[0])
 input_penguins = pd.concat([input_data, X_raw], axis=0)
 
 with st.expander("Input Features"):
-    st.write("** Input Features **")
+    st.write("**Input Features**")
     st.write(input_data)
 
     st.write("**Combined Dataset**")
