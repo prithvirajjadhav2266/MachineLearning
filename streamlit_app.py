@@ -25,36 +25,32 @@ with st.expander("Dataset Working On"):
 with st.expander("Data Visualizers"):
     # Scatter Plot for Bill Length vs. Body Mass
     st.write("### Scatter Plot: Bill Length vs. Body Mass")
-    st.plotly_chart(
-        {
-            "data": [
-                {
-                    "x": data["bill_length_mm"],
-                    "y": data["body_mass_g"],
-                    "type": "scatter",
-                    "mode": "markers",
-                    "marker": {"color": data["species"].apply(lambda x: {'Adelie': 'blue', 'Chinstrap': 'red', 'Gentoo': 'green'}[x])},
-                    "text": data["species"],
-                }
-            ],
-            "layout": {"title": "Bill Length vs Body Mass Colored by Species"},
-        }
-    )
+    st.write("Scatter plot of bill length against body mass, colored by species.")
+    st.write("""
+        This scatter plot provides a visualization of the relationship between bill length and body mass.
+        Each point is colored according to its species.
+    """)
+    scatter_data = data[['bill_length_mm', 'body_mass_g', 'species']]
+    st.write("Species color code: 0 = Adelie, 1 = Chinstrap, 2 = Gentoo")
+    scatter_data['species_code'] = scatter_data['species'].apply(lambda x: {'Adelie': 0, 'Chinstrap': 1, 'Gentoo': 2}[x])
+    st.write(scatter_data)
+    st.scatter_chart(scatter_data, x='bill_length_mm', y='body_mass_g')
 
     # Line Chart of Body Mass by Species
     st.write("### Line Chart: Body Mass by Species")
-    body_mass_by_species = data.groupby("species")["body_mass_g"].mean()
-    st.line_chart(body_mass_by_species)
+    body_mass_by_species = data.groupby("species")["body_mass_g"].mean().reset_index()
+    st.line_chart(body_mass_by_species, x='species', y='body_mass_g')
 
     # Bar Chart for Species Distribution
     st.write("### Bar Chart: Species Distribution")
-    species_distribution = data['species'].value_counts()
-    st.bar_chart(species_distribution)
+    species_distribution = data['species'].value_counts().reset_index()
+    species_distribution.columns = ['species', 'count']
+    st.bar_chart(species_distribution, x='species', y='count')
 
     # Area Chart for Flipper Length by Species
     st.write("### Area Chart: Flipper Length by Species")
-    flipper_length_by_species = data.groupby("species")["flipper_length_mm"].mean()
-    st.area_chart(flipper_length_by_species)
+    flipper_length_by_species = data.groupby("species")["flipper_length_mm"].mean().reset_index()
+    st.area_chart(flipper_length_by_species, x='species', y='flipper_length_mm')
 
 # Data preparations
 with st.sidebar:
