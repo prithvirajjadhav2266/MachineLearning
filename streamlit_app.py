@@ -35,7 +35,7 @@ with st.sidebar:
   body_mass_g=st.slider("body mass (in g)",2700.0,6300.0,4207.0)
 
 
-#creating at the input dataframe according the values that we want in the testi g of the model
+#creating at the input features dataframe 
 values={"island":island,
         "bill_length_mm":bill_length_mm,
         "bill_depth_mm":bill_depth_mm,
@@ -45,6 +45,13 @@ values={"island":island,
 input_data=pd.DataFrame(values,index=[0])
 input_penguins=pd.concat([input_data,X_raw],axis=0)
 
+with st.expander("Input Features"):
+  st.write("** Input Features **")
+  input_data
+  st.write("**Conbined Dataset**")
+  input_penguins
+
+#data preparations
 #Encoding the dataset encode X
 encode=["island","sex"]
 data_penguins=pd.get_dummies(input_penguins,prefix=encode)
@@ -59,16 +66,14 @@ def target_encode(val):
   return target_mapper[val]
 
 y=y_raw.apply(target_encode)
-y
 
-with st.expander("Input Features"):
-  st.write("** Input Features **")
-  input_data
-  st.write("**Conbined Dataset**")
-  input_penguins
-  st.write("Encoded Input Penguin")
+
+with st.expander("Data Preparations")
+  st.write("**Encoded Input Penguin (X)**")
   input_row
-  
+
+  st.write("**Encoded y**")
+  y
 
 
 
