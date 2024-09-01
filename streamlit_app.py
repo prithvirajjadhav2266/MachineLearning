@@ -87,5 +87,8 @@ model.fit(X,y)
 #Apply model to make predictions
 prediction=model.predict(input_row)
 prediction_probability=model.predict_proba(input_row)
-
+data_prediction_probablity=pd.DataFrame(prediction_probability)
+prediction_probability.rename(columns={0:"Adelie",
+                                       1:"Chinstrap",
+                                       2:"Gentoo"})
 prediction_probability
